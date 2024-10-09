@@ -10,12 +10,12 @@ from googleapiclient.discovery import build
 # Define the scope for Gmail API access
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
 
-def authenticate_gmail(credentials_file, token_file='token.pickle'):
+def authenticate_gmail(credentials_file, token_file=None):
     """Authenticate the user with Gmail API."""
     creds = None
     # The token.pickle stores the user's access and refresh tokens and is
     # created automatically when the authorization flow completes for the first time.
-    if os.path.exists(token_file):
+    if token_file and os.path.exists(token_file):
         with open(token_file, 'rb') as token:
             creds = pickle.load(token)
 
@@ -28,7 +28,7 @@ def authenticate_gmail(credentials_file, token_file='token.pickle'):
             creds = flow.run_local_server(port=0)
 
         # Save the credentials for the next run
-        with open(token_file, 'wb') as token:
+        with open(token_file or 'token.pickle', 'wb') as token:
             pickle.dump(creds, token)
 
     return creds
@@ -54,7 +54,7 @@ def get_email_details(message):
 
     return from_email, to_email, subject, body
 
-def get_inbox_messages(credentials_file, token_file):
+def get_inbox_messages(credentials_file, token_file=None):
     """Fetch and print a list of emails from the inbox."""
     creds = authenticate_gmail(credentials_file,token_file)
     service = build('gmail', 'v1', credentials=creds)
@@ -79,8 +79,12 @@ def get_inbox_messages(credentials_file, token_file):
 #            print(f"Body: {body}")
 
 if __name__ == '__main__':
-    # Get the list of messages from the inbox
+#    Get the list of messages from the inbox
     if len(sys.argv) != 3:
         print("Usage: python3 gmail_messages.py <credentials_file> <token_file>")
         sys.exit(1)
-    get_inbox_messages(sys.argv[1],sys.argv[2])
+    else:
+        if len(sys.argv) == 1:
+            get_inbox_messages(sys.argv[1])
+        if len(sys.argv) == 2:
+            get_inbox_messages(sys.argv[1], sys.argv[2])

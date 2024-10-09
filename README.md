@@ -10,12 +10,45 @@ it receives to stdout.
 2. Run `pip install -r requirements.txt` to install the required packages.
 3. Run `python email_server.py` to start the server.
 4. (Optional) Install swaks to send emails to the server (see below)
+5. Make sure there is a Vault instance running and it has the following vaules:
+   a. credentials
+   b. token
+   You can validate the credentials are stored by running the following command:
+   ```bash vault kv get secret/gmail-api```
 
-## Swaks (Mac)
+## Set up Vault server
+
+To run a local instance of Vault (for debugging purposes) you might need to install Vault locally.
+
+```bash
+  brew install hashicorp/tap/vault
+```
+
+Then you need to add your credentials.json and token.pickle files in Vault as base 64
+
+```bash
+# Convert Files to base64
+cat credentials.json | base64 > credentials_b64
+cat token.pickle | base64 > token_b64
+
+# Save the values in local Vault
+vault kv put secret/gmail-api secret/gmail-api/credentials_b64=@credentials_b64 secret/gmail-api/token_b64=@token_b64
+
+# Validate the files have been saved in Vault
+vault kv get secret/gmail-api
+
+# Remove the temporary files 
+
+rm -rf credentials_b64 token_b64
+
+```
+
+
+## Swaks utility to send emails (Mac)
 
 1. Install swaks on Mac with `brew install swaks`.
 
-## Run
+## Run Swaks
 
 1. Run `python email_server.py` to start the server.
 2. Use `swaks --to <recipient>@localhost --from <sender>@localhost --server localhost:1025 --data <test data>` to test the server. Type `quit` to exit.
