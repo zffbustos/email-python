@@ -4,7 +4,7 @@ The email_server.py script is a simple email server that can be used to receive
 emails from the Google Play Store. It listens on port 1025 and prints any emails
 it receives to stdout.
 
-## Set up
+## 1. Set up
 
 1. Install Python 3.6 or later.
 2. Run `pip install -r requirements.txt` to install the required packages.
@@ -16,7 +16,7 @@ it receives to stdout.
    You can validate the credentials are stored by running the following command:
    ```bash vault kv get secret/gmail-api```
 
-## Set up Vault server
+## 2. Set up Vault server
 
 To run a local instance of Vault (for debugging purposes) you might need to install Vault locally.
 
@@ -44,23 +44,23 @@ rm -rf credentials_b64 token_b64
 ```
 
 
-## Swaks utility to send emails (Mac)
+## 3. Swaks utility to send emails (Mac)
 
 1. Install swaks on Mac with `brew install swaks`.
 
-## Run Swaks
+### Run Swaks
 
 1. Run `python email_server.py` to start the server.
 2. Use `swaks --to <recipient>@localhost --from <sender>@localhost --server localhost:1025 --data <test data>` to test the server. Type `quit` to exit.
 
 
-## Gmail Messages
+## 4. Gmail Messages
 
 The gmail_messages.py script is a simple script that can be used to receive
 emails from the Google Play Store. It fetches the emails from the Gmail API and
 prints the content of the emails to stdout.
 
-## Set up
+### Set up
 
 1. Follow the instructions at
    https://developers.google.com/gmail/api/quickstart/python
@@ -68,10 +68,18 @@ prints the content of the emails to stdout.
 2. Create credentials for your project and download the credentials file.
 3. Install the required packages with `pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib`.
 
-## Run
+## 5. Run
+
+### Script gmail_messages.py
+
+Usage: Read mails from gmail account using credentials.json and token.pickle
 
 1. Copy the credentials file to a file named `credentials.json` in the same
    directory as this script.
 2. Run `python gmail_messages.py` to start the script.
 3. The script will print the content of the emails to stdout.
+
+### Script gmail_messages_stored_credentials.py
+
+1. 
 
