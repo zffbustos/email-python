@@ -120,9 +120,13 @@ def dump_credentials_to_file(credentials, token):
 
 if __name__ == '__main__':
 
+    if len(sys.argv) != 3:
+        print("Usage: python3 gmail_messages_stored_credentials.py <vault_address> <vault_token>")
+        sys.exit(1)
+    
 #   Extract Vault credentials from environment variables
-    VAULT_ADDRESS = os.environ.get('VAULT_ADDR')
-    VAULT_TOKEN = os.environ.get('VAULT_TOKEN')
+    VAULT_ADDRESS = sys.argv[1]
+    VAULT_TOKEN = sys.argv[2]
 #   Access Vault to obtain credentials and token
     credentials = get_credentials_from_vault(VAULT_ADDRESS, VAULT_TOKEN)
     token = get_token_from_vault(VAULT_ADDRESS, VAULT_TOKEN)

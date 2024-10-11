@@ -24,7 +24,7 @@ To run a local instance of Vault (for debugging purposes) you might need to inst
   brew install hashicorp/tap/vault
 ```
 
-Then you need to add your credentials.json and token.pickle files in Vault as base 64
+Then you need to add your credentials.json and token.pickle files in Vault as base 64: 
 
 ```bash
 # Convert Files to base64
@@ -42,7 +42,9 @@ vault kv get secret/gmail-api
 rm -rf credentials_b64 token_b64
 
 ```
+(Optional: the script ```start_server.sh``` performs the same actions as above)
 
+If you do not have the credentials or the token files, please contact Felipe Bustos for guidance.
 
 ## 3. Swaks utility to send emails (Mac)
 
