@@ -24,7 +24,16 @@ To run a local instance of Vault (for debugging purposes) you might need to inst
   brew install hashicorp/tap/vault
 ```
 
-Then you need to add your credentials.json and token.pickle files in Vault as base 64: 
+Now, you need to start the vault server locally:
+
+```bash
+   vault start server -dev -log-level=trace -dev-root-token-id=root
+```
+
+This command creates a new Vault instance on your local environment with ```VAULT_ADDR=127.0.0.1:8200``` and ```VAULT_TOKEN=root```. Make sure you these values accessible.
+You can also add them as environment variables in your system or in your local Python Virtual Environment.
+
+Once done, you need to add your credentials.json and token.pickle files in Vault encoded as base 64:
 
 ```bash
 # Convert Files to base64
@@ -40,8 +49,8 @@ vault kv get secret/gmail-api
 # Remove the temporary files 
 
 rm -rf credentials_b64 token_b64
-
 ```
+
 (Optional: the script ```start_server.sh``` performs the same actions as above)
 
 If you do not have the credentials or the token files, please contact Felipe Bustos for guidance.
