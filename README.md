@@ -92,5 +92,7 @@ Usage: Read mails from gmail account using credentials.json and token.pickle
 
 ### Script gmail_messages_stored_credentials.py
 
-1. 
+## 6. Future Work
+
+The next step is to containerize this scripts into one container that generates an independent service. 
 
